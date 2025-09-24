@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> My Anime Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+           
+          
+            background-repeat: no-repeat;
+           background position: center;
+            background-size:  cover; 
+            background-attachment: fixed;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .container {
+            max-width: 650px;
+            margin: auto;
+            background: grey;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="number"], input[type="file"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .rating {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        .rating input {
+            margin-right: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 35%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .anime-list {
+            margin-top: 20px;
+        }
+        .anime-item {
+            background: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body background="C:\Users\RANDY\Videos\nn.jpg">
+
+    <h1>Anime Tracker</h1>
+    <div class="container">
+        <form id="animeForm">
+            <input type="text" id="title" placeholder="Anime Title" required>
+            <input type="number" id="seasons" placeholder="Number of Seasons" required>
+            <input type="file" id="image" accept="image/*">
+            <div class="rating">
+                <label>Rate the Anime:</label>
+                <input type="radio" name="rating" value="1"> 1
+                <input type="radio" name="rating" value="2"> 2
+                <input type="radio" name="rating" value="3"> 3
+                <input type="radio" name="rating" value="4"> 4
+                <input type="radio" name="rating" value="5"> 5
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="anime-list" id="animeList"></div>
+    </div>
+
+    <script>
+        document.getElementById('animeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const seasons = document.getElementById('seasons').value;
+            const rating = document.querySelector('input[name="rating"]:checked') ? document.querySelector('input[name="rating"]:checked').value : 'Not Rated';
+            const image = document.getElementById('image').files[0];
+            const imageUrl = image ? URL.createObjectURL(image) : '';
+
+            const animeList = document.getElementById('animeList');
+            const animeItem = document.createElement('div');
+            animeItem.className = 'anime-item';
+            animeItem.innerHTML = `
+                <h3>${title}</h3>
+                <p>Seasons: ${seasons}</p>
+                <p>Rating: ${rating} Stars</p>
+                ${imageUrl ? `<img src="${imageUrl}" alt="${title}" style="max-width: 100%; height: auto;">` : ''}
+            `;
+            animeList.appendChild(animeItem);
+
+            this.reset();
+        });
+    </script>
+
+</body>
+</html>
